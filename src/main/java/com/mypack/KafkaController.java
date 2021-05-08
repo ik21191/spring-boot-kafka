@@ -1,8 +1,7 @@
 package com.mypack;
-
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -14,8 +13,16 @@ public final class KafkaController {
         this.producerService = producerService;
     }
 
-    @PostMapping(value = "/publish")
-    public void sendMessageToKafkaTopic(@RequestParam String message) {
-        producerService.sendMessage(message);
+    /***  sample jSon
+	{
+	    "id":"104",
+	    "firstName":"Raj",
+	    "lastName":"Kumar"
+
+	}
+	*/
+    @PostMapping(value = "/publish",consumes = {"application/json"}, produces = {"application/json"})
+    public void sendMessageToKafkaTopic(@RequestBody Employee employee) {
+    	producerService.sendMessage(employee);
     }
 }

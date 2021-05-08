@@ -9,16 +9,16 @@ import org.springframework.stereotype.Service;
 public final class ProducerService {
 	private static final Logger logger = LoggerFactory.getLogger(ProducerService.class);
 
-	private final KafkaTemplate<String, String> kafkaTemplate;
+	private final KafkaTemplate<String, Object> kafkaTemplate;
 	private final String TOPIC = "kafkaTopic";
 
-	public ProducerService(KafkaTemplate<String, String> kafkaTemplate) {
+	public ProducerService(KafkaTemplate<String, Object> kafkaTemplate) {
 		this.kafkaTemplate = kafkaTemplate;
 	}
 
-	public void sendMessage(String message) {
-		logger.info(String.format("$$$$ => Producing message: %s", message));
-		this.kafkaTemplate.send(TOPIC, message);
+	public void sendMessage(Employee employee) {
+		logger.info(String.format("$$$$ => Producing message: %s", employee));
+		this.kafkaTemplate.send(TOPIC, employee);
 		/*
 		 * ListenableFuture<SendResult<String, String>> future =
 		 * this.kafkaTemplate.send(TOPIC, message); future.addCallback(new
