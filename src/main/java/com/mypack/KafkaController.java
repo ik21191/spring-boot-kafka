@@ -1,4 +1,5 @@
 package com.mypack;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,6 +13,12 @@ public final class KafkaController {
         this.producerService = producerService;
     }
 
+    /***
+     * Sample message
+     * Method: POST
+     * http://localhost:8080/kafka/publish?message=This is test message
+     */
+    @PostMapping(value = "/publish")
     public void sendMessageToKafkaTopic(@RequestParam String message) {
         producerService.sendMessage(message);
     }
