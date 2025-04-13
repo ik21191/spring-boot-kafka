@@ -19,6 +19,7 @@ public final class ProducerService {
 	public void sendMessage(String message) {
 		logger.info(String.format("$$$$ => Producing message: %s", message));
 		this.kafkaTemplate.send(TOPIC, message);
+		logger.info("Message sent to topic.");
 		/*
 		 * ListenableFuture<SendResult<String, String>> future =
 		 * this.kafkaTemplate.send(TOPIC, message); future.addCallback(new
