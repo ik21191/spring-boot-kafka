@@ -12,6 +12,7 @@ import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
 import org.springframework.kafka.core.DefaultKafkaProducerFactory;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
 import org.springframework.kafka.support.serializer.JsonDeserializer;
 import org.springframework.kafka.support.serializer.JsonSerializer;
@@ -45,7 +46,7 @@ public class KafkaConfiguration {
     configProps.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
     configProps.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class);
     configProps.put(JsonDeserializer.TRUSTED_PACKAGES, "com.mypack.beans");
-
+    
      return new DefaultKafkaConsumerFactory<>(configProps);
 
     //return new DefaultKafkaConsumerFactory<>(configProps, new StringDeserializer(),
@@ -57,6 +58,9 @@ public class KafkaConfiguration {
     ConcurrentKafkaListenerContainerFactory<String, Employee> factory =
         new ConcurrentKafkaListenerContainerFactory<>();
     factory.setConsumerFactory(consumerFactory());
+    //To manually commit the offset and add below property in properties file
+    //spring.kafka.consumer.enable-auto-commit=false
+    //factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
     return factory;
   }
 }

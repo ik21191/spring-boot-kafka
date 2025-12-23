@@ -24,9 +24,4 @@ public final class ConsumerService {
       logger.info("comsumeEmployee(Employee employee) is called.");
         logger.info("comsumeEmployee " + String.format("$$$$ => Consumed message: %s", employee));
     }
-    
-    @KafkaListener(topics = "myTopic2", groupId = "group_id1")
-    public void consume3(String message) {
-        logger.info("consume3 " + String.format("$$$$ => Consumed message: %s", message));
-    }
 }
