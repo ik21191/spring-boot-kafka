@@ -28,6 +28,13 @@ public final class KafkaController {
     return "Message published to Producer";
   }
   
+  /** Sample body
+  {
+    "id" : 1001,
+    "firstName" : "Imran",
+    "lastName" : "Khan"
+  }
+  */
   @PostMapping(value = "/publish-employee")
   public String sendEmployeeMessageToKafkaTopic(@RequestBody Employee employee) {
     producerService.employeeMessage(employee);
